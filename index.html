@@ -153,6 +153,17 @@
                 width: 100%;
             }
 
+            button:active {
+                background-color: hsl(154, 59%, 40%);
+                border-bottom: 4px solid hsl(154, 59%, 30%);
+            }
+
+            button:focus {
+                background-color: hsl(154, 59%, 70%);
+                border-bottom: 4px solid hsl(154, 59%, 55%);
+                outline: none;
+            }
+
             button:hover {
                 background-color: hsl(154, 59%, 70%);
                 border-bottom: 4px solid hsl(154, 59%, 55%);
@@ -183,15 +194,71 @@
                 line-height: 150%;
                 padding-right: 8px;
             }
-
-            .colors {
-                color: hsl(0, 100%, 74%);
-                color: hsl(154, 59%, 51%);
-                color: hsl(248, 32%, 49%);
-                color: hsl(249, 10%, 26%);
-                color: hsl(246, 25%, 77%);
-            }
         </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const contentFormFieldInputs = document.querySelectorAll('.contentFormFieldInput');
+                const contentFormFirstNameMessage = document.querySelector('.contentFormFirstNameMessage');
+                const contentFormLastNameMessage = document.querySelector('.contentFormLastNameMessage');
+                const contentFormEmailMessage = document.querySelector('.contentFormEmailMessage');
+                const contentFormPasswordMessage = document.querySelector('.contentFormPasswordMessage');
+                const contentFormFirstNameIcon = document.querySelector('.contentFormFirstNameIcon');
+                const contentFormLastNameIcon = document.querySelector('.contentFormLastNameIcon');
+                const contentFormEmailIcon = document.querySelector('.contentFormEmailIcon');
+                const contentFormPasswordIcon = document.querySelector('.contentFormPasswordIcon');
+                const button = document.querySelector('button');
+
+                let hasFirstname, hasLastname, hasEmail, hasPassword;
+
+                button.addEventListener('click',validate);
+                button.addEventListener('keydown', function(event) {
+                   if (event.key === 'Enter' || event.key === ' '){
+                       validate.call(this);
+                   }
+                });
+
+                function validate() {
+                    contentFormFieldInputs.forEach(input => {
+                        if(input.classList.contains('contentFormFirstName')) {
+                            hasFirstname = isEmpty(input.value);
+                            updateClassList(hasFirstname, contentFormFirstNameMessage, contentFormFirstNameIcon);
+                        }
+                        if(input.classList.contains('contentFormLastName')) {
+                            hasLastname = isEmpty(input.value);
+                            updateClassList(hasLastname, contentFormLastNameMessage, contentFormLastNameIcon);
+                        }
+                        if(input.classList.contains('contentFormEmail')) {
+                            hasEmail = isValidEmail(input.value)
+                            updateClassList(hasEmail, contentFormEmailMessage, contentFormEmailIcon);
+                        }
+                        if(input.classList.contains('contentFormPassword')) {
+                            hasPassword = isEmpty(input.value);
+                            updateClassList(hasPassword, contentFormPasswordMessage, contentFormPasswordIcon);
+                        }
+                    });
+                    this.blur();
+                }
+
+                function isEmpty(input) {
+                    return !!input;
+                }
+
+                function isValidEmail(email) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailRegex.test(email);
+                }
+
+                function updateClassList(value, message, icon) {
+                    if(value){
+                        message.classList.remove('error');
+                        icon.classList.remove('error');
+                    } else {
+                        message.classList.add('error');
+                        icon.classList.add('error');
+                    }
+                }
+            });
+        </script>
     </head>
     <body>
         <main>
@@ -204,29 +271,29 @@
                 <label class="contentTrial"><span>Try it free 7 days</span> then $20/mo. thereafter</label>
                 <div class="contentForm">
                     <div class="contentFormField">
-                        <input class="contentFormFieldInput contentFormFirstName" placeholder="First Name">
-                        <img class="contentFormIcon" src="images/icon-error.svg" alt="error icon">
+                        <input class="contentFormFieldInput contentFormFirstName" placeholder="First Name" tabindex="1">
+                        <img class="contentFormIcon contentFormFirstNameIcon" src="images/icon-error.svg" alt="error icon">
                     </div>
                     <label class="contentFormMessage contentFormFirstNameMessage">First Name cannot be empty</label>
                     <div class="contentFormGap"></div>
                     <div class="contentFormField">
-                        <input class="contentFormFieldInput contentFormLastName" placeholder="Last Name">
-                        <img class="contentFormIcon" src="images/icon-error.svg" alt="error icon">
+                        <input class="contentFormFieldInput contentFormLastName" placeholder="Last Name" tabindex="2">
+                        <img class="contentFormIcon contentFormLastNameIcon" src="images/icon-error.svg" alt="error icon">
                     </div>
                     <label class="contentFormMessage contentFormLastNameMessage">Last Name cannot be empty</label>
                     <div class="contentFormGap"></div>
                     <div class="contentFormField">
-                        <input class="contentFormFieldInput contentFormEmail" placeholder="Email Address">
-                        <img class="contentFormIcon" src="images/icon-error.svg" alt="error icon">
+                        <input class="contentFormFieldInput contentFormEmail" placeholder="Email Address" tabindex="3">
+                        <img class="contentFormIcon contentFormEmailIcon" src="images/icon-error.svg" alt="error icon">
                     </div>
                     <label class="contentFormMessage contentFormEmailMessage">Looks like this is not an email</label>
                     <div class="contentFormGap"></div>
                     <div class="contentFormField">
-                        <input class="contentFormFieldInput contentFormPassword" placeholder="Password" type="password">
-                        <img class="contentFormIcon" src="images/icon-error.svg" alt="error icon">
+                        <input class="contentFormFieldInput contentFormPassword" placeholder="Password" type="password" tabindex="4">
+                        <img class="contentFormIcon contentFormPasswordIcon" src="images/icon-error.svg" alt="error icon">
                     </div>
                     <label class="contentFormMessage contentFormPasswordMessage">Password cannot be empty</label>
-                    <button>Claim your free trial</button>
+                    <button tabindex="5">Claim your free trial</button>
                     <label class="contentFormHint">By clicking the button, you are agreeing to our <span>Terms and Services</span></label>
                 </div>
             </section>
