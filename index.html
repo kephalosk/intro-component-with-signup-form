@@ -25,10 +25,15 @@
                 align-items: center;
                 background-color: hsl(0, 0%, 100%);
                 border-radius: 10px;
+                box-shadow: 0 8px 1px 0 hsl(0, 0%, 0%, 0.15);
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 padding: 2.7vw;
+
+                @media (max-width: 600px) {
+                    padding: 24px;
+                }
             }
 
             .contentFormField {
@@ -70,6 +75,11 @@
                 font-weight: bold;
                 margin-top: 16px;
                 text-align: center;
+
+                @media (max-width: 600px) {
+                    font-size: 10px;
+                    padding: 0 32px;
+                }
             }
 
             .contentFormHint span {
@@ -132,7 +142,7 @@
                 justify-content: center;
                 margin: 0;
 
-                @media (max-width: 450px) {
+                @media (max-width: 600px) {
                     background-image: url('images/bg-intro-mobile.png');
                 }
             }
@@ -175,12 +185,23 @@
                 color: hsl(0, 0%, 100%);
                 font-size: 44px;
                 padding-right: 8px;
+
+                @media (max-width: 600px) {
+                    font-size: 30px;
+                    margin-top: 0;
+                    text-align: center;
+                }
             }
 
             main {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 padding: 123px 11vw;
+
+                @media (max-width: 600px) {
+                    grid-template-columns: 1fr;
+                    padding: 92px 24px 67px 24px;
+                }
             }
 
             p {
@@ -188,6 +209,11 @@
                 letter-spacing: 1px;
                 line-height: 150%;
                 padding-right: 8px;
+
+                @media (max-width: 600px) {
+                    margin-bottom: 60px;
+                    text-align: center;
+                }
             }
         </style>
         <script>
